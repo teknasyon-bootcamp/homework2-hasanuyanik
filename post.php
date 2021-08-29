@@ -1,25 +1,25 @@
+<style>
+    div{
+        padding: 10px 20px;
+        box-shadow: 0 0 5px #000;
+        margin: 10px auto;
+    }
+</style>
 <?php
 
-/**
- * post.php
- *
- * Bu betik direk olarak erişilebilir. functions.php'de yaptığınız gibi bir
- * kontrol eklemenize gerek yok.
- *
- * > Dikkat: Bu dosya hem direk çalıştırılabilir hem de `posts.php` dosyasında
- * > 1+ kez içe aktarılmış olabilir.
- *
- * Bu betik dosyası içerisinde functions.php'de yer alan fonksiyonları da kullanarak
- * aşağıdaki işlemleri gerçekleştirmenizi bekliyoruz.
- *
- * - $id değişkeni yoksa "1" değeri ile tanımlanmalı, daha önceden bu değişken
- * tanımlanmışsa değeri değiştirilmemeli. (Kontrol etmek için `isset`
- * (https://www.php.net/manual/en/function.isset.php) kullanılabilir.)
- * - $id için yapılan işlemin aynısı $title ve $type için de yapılmalı. (İstediğiniz
- * değerleri verebilirsiniz)
- * - Bir sonraki adımda ilgili içerik gösterilmeden önce bir div oluşturulmalı ve
- * bu div $type değerine göre arkaplan rengi almalıdır. (urgent=kırmızı,
- * warning=sarı, normal=arkaplan yok)
- * - `getPostDetails` fonksiyonu tetiklenerek ilgili içeriğin çıktısı gösterilmeli.
- */
+$script = "Post"; // Tek post işlemi yapıldığında functions.php  hata vermemesi için "Post" değerini script e ata
 
+require_once "functions.php"; // Daha önce çekilmediyse ve functions.php varsa functions.php yi çağır
+
+$id = (isset($id)) ? $id : 1; // $id değeri tanımlıysa tanımlı değeri değilse 1 değerini $id ye ata
+$title = (isset($title)) ? $title : "Başlıksız"; // $title değeri tanımlıysa tanımlı değeri değilse "Başlıksız" değerini $title a ata
+$type = (isset($type)) ? $type : "normal"; // $type değeri tanımlıysa tanımlı değeri değilse "normal" değerini $type a ata
+
+$typeColor = ($type == "urgent") ? "red" : (($type == "warning") ? "yellow" : "none"); /*
+    type değeri "urgent" ise "red" değerini
+    type değeri "warning" ise "yellow" değerini
+    bunların dışında ise "none" değerini   typeColor a ata
+ */
+echo "<div style='background-color:$typeColor'>"; // div oluştur ve arkaplan rengine typeColor değerini yaz
+getPostDetails($id,$title); // id ve title değerlerini getPostDetails ile işleme koy
+echo "</div>"; // div i kapat
